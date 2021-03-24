@@ -1,57 +1,46 @@
+
+
+function getAge(birthYear,deathYear) {    
+    if (!deathYear) {
+        deathYear = currentYear = new Date().getFullYear();
+    } 
+
+    return deathYear - birthYear;
+}
+
 let findTheOldest = function(people) {
 
-    let ageArray = people.map(person => {
-        let currentAge;
+    let oldest = people.reduce((previousPerson, currentPerson)  => {
+        const previousPersonAge = getAge(previousPerson.yearOfBirth,previousPerson.yearOfDeath);
+        const currentPersonAge = getAge(currentPerson.yearOfBirth,currentPerson.yearOfDeath);
 
-        // set person age
-        if (person.hasOwnProperty("yearOfDeath") ) {
-            currentAge = person.yearOfDeath - person.yearOfBirth;
-            person.age = currentAge;
-        } else {
-            let currentYear = new Date().getFullYear();
-            currentAge = currentYear - person.yearOfBirth;
-            person.age = currentAge;
-        }
-        return person;
+        return previousPersonAge < currentPersonAge ? currentPerson : previousPerson;
+
     });
 
+    return oldest;
 
-    let sortedArr = [...ageArray].sort((a, b) => b.age - a.age);
     
-
-    // let ageArray = people.reduce((previousPerson, currentPerson) => {
+    // let ageArray = people.map(person => {
     //     let currentAge;
-    //     let oldestPerson;
-
-    //     console.log(`${currentPerson}`);
 
     //     // set person age
-    //     if (currentPerson.hasOwnProperty("yearOfDeath") ) {
-    //         currentAge = currentPerson.yearOfDeath - currentPerson.yearOfBirth;
-    //         currentPerson.age = currentAge;
+    //     if (person.hasOwnProperty("yearOfDeath") ) {
+    //         currentAge = person.yearOfDeath - person.yearOfBirth;
+    //         person.age = currentAge;
     //     } else {
     //         let currentYear = new Date().getFullYear();
-    //         currentAge = currentYear - currentPerson.yearOfBirth;
-    //         currentPerson.age = currentAge;
+    //         currentAge = currentYear - person.yearOfBirth;
+    //         person.age = currentAge;
     //     }
+    //     return person;
+    // });
 
-        
-
-        
-    //     if (currentPerson.age > previousPerson.age) {
-    //         oldestPerson = currentPerson;
-    //     } else {
-    //         oldestPerson = previousPerson;
-    //     }
-
-    //     // console.log(oldestPerson);
-    //     return oldestPerson;
-    // },0);
-
+    // let sortedArr = [...ageArray].sort((a, b) => b.age - a.age);
     
+    // return sortedArr[0];
 
 
-    return sortedArr[0];
 
 }
 
